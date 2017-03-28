@@ -3,6 +3,7 @@
 use Closure;
 use Cas;
 use Auth;
+use App\Role;
 use App\User;
 
 class CASAuthenticate
@@ -26,6 +27,7 @@ class CASAuthenticate
                 $user->first = $user->eid;
                 $user->last = "";
                 $user->save();
+                $user->roles()->attach(Role::where('name', 'User')->first());
             }
             Auth::login($user);
         }
