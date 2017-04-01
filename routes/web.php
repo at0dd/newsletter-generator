@@ -17,6 +17,7 @@ Route::get('/guidelines', 'MainController@Guidelines');
 
 Route::group(['middleware' => 'auth'], function () {
   Route::get('/contribute', ['uses' => 'MainController@Contribute', 'roles' => ['User']]);
+  Route::post('/contribute', ['uses' => 'MainController@ContributeSubmit', 'roles' => ['User']]);
   Route::get('/profile', ['uses' => 'MainController@Profile', 'roles' => ['User']]);
   Route::post('/profile', ['uses' => 'MainController@UpdateProfile', 'roles' => ['User']]);
   Route::get('/administration', ['uses' => 'MainController@Administration', 'roles' => ['Administrator']]);

@@ -2,6 +2,13 @@
 @section('title', 'This Week')
 
 @section('content')
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-md-6 col-md-offset-3">
+      @include('layouts/message')
+    </div>
+  </div>
+</div>
 <div class="container-fluid">
   <div class="row">
     <header class="col-xs-12 col-md-4">
