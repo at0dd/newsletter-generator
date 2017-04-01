@@ -11,7 +11,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class AuthController extends Controller
 {
-    protected $redirectPath = '/';
+    protected $redirectPath = '/profile';
 
     /*
     |--------------------------------------------------------------------------
@@ -36,7 +36,7 @@ class AuthController extends Controller
 
     public function CASLogin()
     {
-        return redirect('/');
+        return redirect('/profile');
     }
 
     public function Logout()

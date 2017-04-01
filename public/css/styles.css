@@ -1,0 +1,140 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #F4F4F4;
+}
+
+a {
+  -moz-transition: color 0.2s ease, border-bottom-color 0.2s ease;
+  -webkit-transition: color 0.2s ease, border-bottom-color 0.2s ease;
+  -ms-transition: color 0.2s ease, border-bottom-color 0.2s ease;
+  transition: color 0.2s ease, border-bottom-color 0.2s ease;
+  border-bottom: dotted 1px rgba(160, 160, 160, 0.65);
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover,
+.navbar-default .navbar-brand,
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-nav>li>a:focus,
+.navbar-default .navbar-nav>li>a:hover,
+.navbar-default .navbar-brand:focus {
+  color: #793CCC;
+}
+
+section {
+  margin-bottom: 75px;
+}
+
+section hr {
+  margin-top: -5px;
+}
+
+article {
+  margin-bottom: 50px;
+}
+
+header {
+  margin-bottom: 50px;
+}
+
+.btn-primary {
+  background-color: #793CCC;
+  border-color: #793CCC;
+}
+
+.btn-primary:hover {
+  background-color: #512888;
+  border-color: #512888;
+}
+
+.navbar {
+  border-radius: 0;
+}
+
+.navbar-default {
+  background-color: #FFF;
+  border: none;
+  border-bottom: solid 1px rgba(160, 160, 160, 0.3);
+}
+
+.navbar-brand {
+  font-weight: 800 !important;
+  border-right: solid 1px rgba(160, 160, 160, 0.3);
+}
+
+.navbar a {
+  border-bottom: 0;
+  font-size: 0.7em;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+.udate {
+  margin-left: -20px;
+}
+
+.udatetime {
+  font-weight: bold;
+}
+
+.news-nav {
+  list-style: none;
+  padding-left: 0;
+}
+
+.news-nav li {
+  display: inline-block;
+  width: 49%;
+  margin-bottom: 15px;
+}
+
+.news-nav li a {
+  color: #512888;
+  border-bottom: none;
+}
+
+.notification {
+  background-color: #FF6961;
+  color: #FFFFFF;
+  border-radius: 500px;
+  display: inline-block;
+  width: 20px;
+  text-align: center;
+  vertical-align: top;
+}
+
+.news section article {
+  text-align: center;
+}
+
+.news section article p {
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.date, .location {
+  font-weight: 300;
+  display: block;
+  margin: -10px 0 8px 0;
+}
+
+@media (min-width: 768px) {
+  .news-nav li {
+    display: inline-block;
+    width: auto;
+    margin-right: 15px;
+  }
+}
+
+@media (min-width: 992px) {
+  .news section article {
+    text-align: left;
+  }
+
+  .news section article p {
+    margin: 0;
+  }
+}
