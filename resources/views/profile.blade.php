@@ -5,6 +5,7 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-md-6 col-md-offset-3">
+      @include('layouts/message')
       <h2>{{ Auth::user()->first }} {{ Auth::user()->last }}</h2>
       <form method="POST" action="{{ url('/profile') }}">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
