@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => 'cas'], function () {
+  Route::post('/administration/approve/{id}', ['uses' => 'MainController@Approve', 'roles' => ['Administrator']]);
+  Route::post('/administration/deny/{id}', ['uses' => 'MainController@Deny', 'roles' => ['Administrator']]);
 });

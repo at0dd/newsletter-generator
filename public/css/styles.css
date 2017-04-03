@@ -121,6 +121,14 @@ header {
   margin: -10px 0 8px 0;
 }
 
+.bootstrap-datetimepicker-widget table td.active {
+  background-color: #512888;
+}
+
+.checked {
+  text-align: center;
+}
+
 @media (min-width: 768px) {
   .news-nav li {
     display: inline-block;

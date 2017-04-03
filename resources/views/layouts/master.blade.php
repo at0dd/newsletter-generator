@@ -11,6 +11,8 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" rel="stylesheet">
   <link href="{{ URL::asset('css/bootstrap.min.css') }}" rel="stylesheet">
   <link href="{{ URL::asset('css/font-awesome.min.css') }}" rel="stylesheet">
+  <link href="{{ URL::asset('css/jquery-ui.min.css') }}" rel="stylesheet">
+  <link href="{{ URL::asset('css/datetimepicker.min.css') }}" rel="stylesheet">
   <link href="{{ URL::asset('css/styles.css') }}" rel="stylesheet">
   @yield('head')
 </head>
@@ -47,7 +49,7 @@
         </div>
       </div>
     </nav>
-    
+
     @yield('content')
 
   <script src="{{ URL::asset('js/jquery.min.js') }}"></script>

@@ -8,12 +8,16 @@ use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Response;
 
 class MainController extends Controller
 {
   public function Index()
   {
-    return view('index');
+    $categories = Category::all();
+    $articles = Article::where('approved', 1)->get();
+
+    return view('index', compact('categories', 'articles'));
   }
 
   public function Archives()
@@ -35,17 +39,23 @@ class MainController extends Controller
   public function ContributeSubmit(Request $request)
   {
     $this->validate($request, [
-      'event' => 'required|string|max:255',
+      'title' => 'required|string|max:255',
       'category' => 'required|string|max:255',
-      'link' => 'string|max:255',
+      'link' => 'max:255',
+      'date' => 'max:255',
+      'location' => 'max:255',
       'text' => 'required|string|max:144',
     ]);
+    $category = Category::where('slug', $request->input('category'))->first();
     $article = new Article();
-    $article->event = $request->input('event');
-    $article->category = $request->input('category');
+    $article->title = $request->input('title');
     $article->link = $request->input('link');
+    $article->date = $request->input('date');
+    $article->location = $request->input('location');
     $article->text = $request->input('text');
+    $article->submitter()->associate(Auth::user());
     $article->save();
+    $article->categories()->attach($category);
     return redirect()->action('MainController@Contribute')->with('success', 'Your article has been submitted for review!');
   }
 
@@ -71,6 +81,23 @@ class MainController extends Controller
 
   public function Administration()
   {
-    return view('administration');
+    $articles = Article::all();
+    return view('administration', compact('articles'));
+  }
+
+  public function Approve($id)
+  {
+    $article = Article::where('id', $id)->first();
+    $article->approved = true;
+    $article->save();
+    return Response::json(200);
+  }
+
+  public function Deny($id)
+  {
+    $article = Article::where('id', $id)->first();
+    $article->approved = false;
+    $article->save();
+    return Response::json(200);
   }
 }

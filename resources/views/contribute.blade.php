@@ -10,11 +10,11 @@
       <form method="POST" action="{{ url('/contribute') }}">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="form-group">
-          <label for="event">Event</label>
-          <input type="text" class="form-control" name="event" value="{{ old('event') }}" required>
+          <label for="title">Title*</label>
+          <input type="text" class="form-control" name="title" value="{{ old('title') }}" required>
         </div>
         <div class="form-group">
-          <label for="category">Category</label>
+          <label for="category">Category*</label>
           <br />
           <select name="category" required>
             @foreach($categories as $category)
@@ -24,10 +24,18 @@
         </div>
         <div class="form-group">
           <label for="link">Link</label>
-          <input type="text" class="form-control" name="link" value="{{ old('event') }}" required>
+          <input type="text" class="form-control" name="link" value="{{ old('link') }}">
         </div>
         <div class="form-group">
-          <label for="text">Text</label>
+          <label for="date">Date</label>
+          <input type="string" class="form-control" id="date" name="date" value="{{ old('date') }}">
+        </div>
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input type="text" class="form-control" name="location" value="{{ old('location') }}">
+        </div>
+        <div class="form-group">
+          <label for="text">Text*</label>
           <input type="text" class="form-control" name="text" value="{{ old('text') }}" maxlength="144" required>
         </div>
         <button type="submit" class="btn btn-primary btn-xl">Submit Article</button>
@@ -35,4 +43,13 @@
     </div>
   </div>
 </div>
+@endsection
+
+@section('footer')
+<script src="{{ URL::asset('js/jquery-ui.min.js') }}"></script>
+<script src="{{ URL::asset('js/moment-with-locales.min.js') }}"></script>
+<script src="{{ URL::asset('js/datetimepicker.min.js') }}"></script>
+<script>
+$(function(){$('#date').datetimepicker();});
+</script>
 @endsection
