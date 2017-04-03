@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::get('/articles', 'APIController@Articles');
+
 Route::group(['middleware' => 'cas'], function () {
   Route::post('/administration/approve/{id}', ['uses' => 'MainController@Approve', 'roles' => ['Administrator']]);
   Route::post('/administration/deny/{id}', ['uses' => 'MainController@Deny', 'roles' => ['Administrator']]);

@@ -82,14 +82,17 @@ class MainController extends Controller
   public function Administration()
   {
     $articles = Article::all();
+    $articlecount = Article::count();
     $usercount = User::count();
-    return view('administration', compact('articles', 'usercount'));
+    return view('administration', compact('articles', 'articlecount', 'usercount'));
   }
 
   public function Users()
   {
     $users = User::all();
-    return view('users', compact('users'));
+    $articlecount = Article::count();
+    $usercount = User::count();
+    return view('users', compact('users', 'articlecount', 'usercount'));
   }
 
   public function Approve($id)

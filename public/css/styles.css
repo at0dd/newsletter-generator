@@ -129,6 +129,12 @@ header {
   text-align: center;
 }
 
+.newsletter {
+  display: block;
+  margin: 0 auto;
+  width: 150px;
+}
+
 @media (min-width: 768px) {
   .news-nav li {
     display: inline-block;

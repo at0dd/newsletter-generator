@@ -11,9 +11,8 @@
 </div>
 <div class="container-fluid">
   <h2>Administration</h2>
-  <ul class="news-nav">
-    <li><span class="notification">{{ $usercount }}</span> <a href="{{ url('/administration/users/') }}">Manage Users</a></li>
-  </ul>
+  @include('layouts/admin')
+  <a href="#" class="btn btn-primary btn-xl newsletter">Send Newsletter</a>
   <table class="table table-striped">
     <thead>
       <tr>

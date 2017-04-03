@@ -11,6 +11,7 @@
 </div>
 <div class="container-fluid">
   <h2>User Administration</h2>
+  @include('layouts/admin')
   <table class="table table-striped">
     <thead>
       <tr>
