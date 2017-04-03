@@ -9,7 +9,7 @@ class APIController extends Controller
 {
   public function Articles()
   {
-    $articles = Article::where('approved', 1)->get();
+    $articles = Article::with('categories')->where('approved', 1)->get();
     return Response::json($articles, 200);
   }
 }
