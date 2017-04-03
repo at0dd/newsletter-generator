@@ -19,7 +19,7 @@
         @foreach($articles as $article)
           @if($article->categories()->first()->category != "Job Opportunities" && $article->date != null)
             <span class="udate">{{ $article->date }}</span>
-            <li><span class="udatetime">{{ $article->title }}</span> @ {{ $article->location }}</li>
+            <li><span class="udatetime"><a href="{{ $article->link }}" target="_blank">{{ $article->title }}</a></span> @ {{ $article->location }}</li>
           @endif
         @endforeach
       </ul>
