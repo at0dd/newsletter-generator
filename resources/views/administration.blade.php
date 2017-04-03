@@ -74,7 +74,6 @@ $('.newsletter').click(function(e){
   if(conf){
     var settings = {
       "async": true,
-      "crossDomain": true,
       "url": "{{ url('/api/administration/send/') }}",
       "method": "POST",
     }
@@ -94,7 +93,6 @@ $('.clink').click(function(e){
   e.preventDefault();
   var settings = {
     "async": true,
-    "crossDomain": true,
     "url": "url",
     "method": "POST",
   }
@@ -118,7 +116,6 @@ $('.carch').click(function(e){
   e.preventDefault();
   var settings = {
     "async": true,
-    "crossDomain": true,
     "url": "{{ url('/api/administration/archive/') }}/"+this.id,
     "method": "POST",
   }
