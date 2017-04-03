@@ -43,6 +43,7 @@ $('.clink').click(function(e){
   e.preventDefault();
   var settings = {
     "async": true,
+    "crossDomain": true,
     "url": "{{ url('/api/administration/users/') }}/"+this.id+"/"+$(this).find('i').attr('id'),
     "method": "POST",
   }
