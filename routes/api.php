@@ -16,7 +16,9 @@ use Illuminate\Http\Request;
 Route::get('/articles', 'APIController@Articles');
 
 Route::group(['middleware' => 'cas'], function () {
-  Route::post('/administration/approve/{id}', ['uses' => 'MainController@Approve', 'roles' => ['Administrator']]);
-  Route::post('/administration/deny/{id}', ['uses' => 'MainController@Deny', 'roles' => ['Administrator']]);
-  Route::post('/administration/users/{id}/{role}', ['uses' => 'MainController@Role', 'roles' => ['Administrator']]);
+  Route::post('/administration/approve/{id}', ['uses' => 'APIController@Approve', 'middleware' => 'roles', 'roles' => ['Administrator']]);
+  Route::post('/administration/deny/{id}', ['uses' => 'APIController@Deny', 'middleware' => 'roles', 'roles' => ['Administrator']]);
+  Route::post('/administration/users/{id}/{role}', ['uses' => 'APIController@Role', 'middleware' => 'roles', 'roles' => ['Administrator']]);
+  Route::post('/administration/archive/{id}', ['uses' => 'APIController@Archive', 'middleware' => 'roles', 'roles' => ['Administrator']]);
+  Route::post('/administration/send', ['uses' => 'APIController@SendNewsletter', 'middleware' => 'roles', 'roles' => ['Administrator']]);
 });

@@ -14,6 +14,7 @@
 Route::get('/', 'MainController@Index');
 Route::get('/archives', 'MainController@Archives');
 Route::get('/guidelines', 'MainController@Guidelines');
+Route::get('/mail', 'MainController@Mail');
 
 Route::group(['middleware' => 'cas'], function () {
   Route::get('/contribute', ['uses' => 'MainController@Contribute', 'middleware' => 'roles', 'roles' => ['User']]);
@@ -21,6 +22,7 @@ Route::group(['middleware' => 'cas'], function () {
   Route::get('/profile', ['uses' => 'MainController@Profile', 'middleware' => 'roles', 'roles' => ['User']]);
   Route::post('/profile', ['uses' => 'MainController@UpdateProfile', 'middleware' => 'roles', 'roles' => ['User']]);
   Route::get('/administration', ['uses' => 'MainController@Administration', 'middleware' => 'roles', 'roles' => ['Administrator']]);
+  Route::get('/administration/archive', ['uses' => 'MainController@ArchiveAll', 'middleware' => 'roles', 'roles' => ['Administrator']]);
   Route::get('/administration/users', ['uses' => 'MainController@Users', 'middleware' => 'roles', 'roles' => ['Administrator']]);
 });
 

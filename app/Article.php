@@ -10,7 +10,7 @@ use App\User;
 class Article extends Model
 {
   protected $fillable = [
-    'title', 'date', 'location', 'link', 'text', 'approved', 'submitter_id',
+    'title', 'date', 'location', 'link', 'text', 'approved', 'archived', 'submitter_id',
   ];
 
   public function submitter()

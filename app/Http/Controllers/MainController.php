@@ -15,14 +15,22 @@ class MainController extends Controller
   public function Index()
   {
     $categories = Category::all();
-    $articles = Article::where('approved', 1)->get();
+    $articles = Article::where('approved', 1)->where('archived', 0)->get();
 
     return view('index', compact('categories', 'articles'));
   }
 
+  public function Mail()
+  {
+    $articles = Article::with('categories')->where('approved', 1)->where('archived', 0)->get();
+    return view('mail/newsletter', compact('articles'));
+  }
+
   public function Archives()
   {
-    return view('archives');
+    $categories = Category::all();
+    $articles = Article::with('categories')->where('approved', 1)->where('archived', 1)->get();
+    return view('archives', compact('categories', 'articles'));
   }
 
   public function Guidelines()
@@ -81,10 +89,20 @@ class MainController extends Controller
 
   public function Administration()
   {
-    $articles = Article::all();
+    $articles = Article::get();
     $articlecount = Article::count();
     $usercount = User::count();
     return view('administration', compact('articles', 'articlecount', 'usercount'));
+  }
+
+  public function ArchiveAll()
+  {
+    $articles = Article::where('archived', 0)->get();
+    foreach($articles as $article){
+      $article->archived = 1;
+      $article->save();
+    }
+    return redirect()->action('MainController@Administration')->with('success', 'All articles have been archived!');
   }
 
   public function Users()
@@ -93,34 +111,5 @@ class MainController extends Controller
     $articlecount = Article::count();
     $usercount = User::count();
     return view('users', compact('users', 'articlecount', 'usercount'));
-  }
-
-  public function Approve($id)
-  {
-    $article = Article::where('id', $id)->first();
-    $article->approved = true;
-    $article->save();
-    return Response::json(200);
-  }
-
-  public function Deny($id)
-  {
-    $article = Article::where('id', $id)->first();
-    $article->approved = false;
-    $article->save();
-    return Response::json(200);
-  }
-
-  public function Role($id, $role)
-  {
-    $user = User::where('id', $id)->first();
-    $roleo = Role::where('name', $role)->first();
-    if($user->hasRole($role)){
-      $user->roles()->detach($roleo->id);
-    } else {
-      $user->roles()->attach($roleo->id);
-    }
-    $user->save();
-    return Response::json(200);
   }
 }

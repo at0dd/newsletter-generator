@@ -21,6 +21,7 @@ class CreateArticlesTable extends Migration
           $table->string('link')->nullable();
           $table->string('text');
           $table->boolean('approved')->default(0);
+          $table->boolean('archived')->default(0);
           $table->integer('submitter_id');
           $table->timestamps();
       });

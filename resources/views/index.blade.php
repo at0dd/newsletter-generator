@@ -31,12 +31,12 @@
     <div class="col-xs-12 col-md-8 news">
       <ul class="news-nav">
         @foreach($categories as $category)
-        <li><span class="notification">{{ count($category->articles()->where('approved', 1)->get()) }}</span> <a href="#{{ $category->slug }}">{{ $category->category }}</a></li>
+        <li><span class="notification">{{ count($category->articles()->where('approved', 1)->where('archived', 0)->get()) }}</span> <a href="#{{ $category->slug }}">{{ $category->category }}</a></li>
         @endforeach
       </ul>
 
       @foreach($categories as $category)
-        @if(count($category->articles()->where('approved', 1)->get()) > 0)
+        @if(count($category->articles()->where('approved', 1)->where('archived', 0)->get()) > 0)
         <section id="{{ $category->slug }}">
           <h2>{{ $category->category }}</h2>
           <hr />

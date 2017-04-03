@@ -38,12 +38,12 @@ header {
   margin-bottom: 50px;
 }
 
-.btn-primary {
+.btn-primary, .btn-primary:focus {
   background-color: #793CCC;
   border-color: #793CCC;
 }
 
-.btn-primary:hover {
+.btn-primary:hover, .btn-primary:active {
   background-color: #512888;
   border-color: #512888;
 }
@@ -129,8 +129,13 @@ header {
   text-align: center;
 }
 
-.newsletter {
+.adminbtn {
   display: block;
+  text-align: center;
+}
+
+.archive, .newsletter {
+  display: inline-block;
   margin: 0 auto;
   width: 150px;
 }
