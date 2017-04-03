@@ -82,7 +82,14 @@ class MainController extends Controller
   public function Administration()
   {
     $articles = Article::all();
-    return view('administration', compact('articles'));
+    $usercount = User::count();
+    return view('administration', compact('articles', 'usercount'));
+  }
+
+  public function Users()
+  {
+    $users = User::all();
+    return view('users', compact('users'));
   }
 
   public function Approve($id)
@@ -98,6 +105,19 @@ class MainController extends Controller
     $article = Article::where('id', $id)->first();
     $article->approved = false;
     $article->save();
+    return Response::json(200);
+  }
+
+  public function Role($id, $role)
+  {
+    $user = User::where('id', $id)->first();
+    $roleo = Role::where('name', $role)->first();
+    if($user->hasRole($role)){
+      $user->roles()->detach($roleo->id);
+    } else {
+      $user->roles()->attach($roleo->id);
+    }
+    $user->save();
     return Response::json(200);
   }
 }

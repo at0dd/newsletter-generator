@@ -16,11 +16,12 @@ Route::get('/archives', 'MainController@Archives');
 Route::get('/guidelines', 'MainController@Guidelines');
 
 Route::group(['middleware' => 'cas'], function () {
-  Route::get('/contribute', ['uses' => 'MainController@Contribute', 'roles' => ['User']]);
-  Route::post('/contribute', ['uses' => 'MainController@ContributeSubmit', 'roles' => ['User']]);
-  Route::get('/profile', ['uses' => 'MainController@Profile', 'roles' => ['User']]);
-  Route::post('/profile', ['uses' => 'MainController@UpdateProfile', 'roles' => ['User']]);
-  Route::get('/administration', ['uses' => 'MainController@Administration', 'roles' => ['Administrator']]);
+  Route::get('/contribute', ['uses' => 'MainController@Contribute', 'middleware' => 'roles', 'roles' => ['User']]);
+  Route::post('/contribute', ['uses' => 'MainController@ContributeSubmit', 'middleware' => 'roles', 'roles' => ['User']]);
+  Route::get('/profile', ['uses' => 'MainController@Profile', 'middleware' => 'roles', 'roles' => ['User']]);
+  Route::post('/profile', ['uses' => 'MainController@UpdateProfile', 'middleware' => 'roles', 'roles' => ['User']]);
+  Route::get('/administration', ['uses' => 'MainController@Administration', 'middleware' => 'roles', 'roles' => ['Administrator']]);
+  Route::get('/administration/users', ['uses' => 'MainController@Users', 'middleware' => 'roles', 'roles' => ['Administrator']]);
 });
 
 Route::get('/login', 'Auth\AuthController@CASLogin');

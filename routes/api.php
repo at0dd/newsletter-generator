@@ -16,4 +16,5 @@ use Illuminate\Http\Request;
 Route::group(['middleware' => 'cas'], function () {
   Route::post('/administration/approve/{id}', ['uses' => 'MainController@Approve', 'roles' => ['Administrator']]);
   Route::post('/administration/deny/{id}', ['uses' => 'MainController@Deny', 'roles' => ['Administrator']]);
+  Route::post('/administration/users/{id}/{role}', ['uses' => 'MainController@Role', 'roles' => ['Administrator']]);
 });

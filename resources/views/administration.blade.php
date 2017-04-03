@@ -11,6 +11,9 @@
 </div>
 <div class="container-fluid">
   <h2>Administration</h2>
+  <ul class="news-nav">
+    <li><span class="notification">{{ $usercount }}</span> <a href="{{ url('/administration/users/') }}">Manage Users</a></li>
+  </ul>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -21,7 +24,7 @@
         <th>Location</th>
         <th>Text</th>
         <th>Submitted By</th>
-        <th class="approve">Approved</th>
+        <th class="checked">Approved</th>
       </tr>
     </thead>
     <tbody>
@@ -50,22 +53,21 @@
 <script>
 $('.clink').click(function(e){
   e.preventDefault();
-  var settings;
+  var settings = {
+    "async": true,
+    "url": "url",
+    "method": "POST",
+  }
   if($(this).hasClass('approved')){
-    settings = {
-      "async": true,
-      "url": "{{ url('/api/administration/deny/') }}/"+this.id,
-      "method": "POST",
-    }
+    settings['url'] = "{{ url('/api/administration/deny/') }}/"+this.id;
   } else {
-    settings = {
-      "async": true,
-      "url": "{{ url('/api/administration/approve/') }}/"+this.id,
-      "method": "POST",
-    }
+    settings['url'] = "{{ url('/api/administration/approve/') }}/"+this.id;
   }
   $.ajax(settings).done(function (response) {
     console.log(response);
+    if(response != 200){
+      alert("An error occured. Please sign in and try again.");
+    }
   });
   $(this).toggleClass('approved denied');
   $(this).find('i').toggleClass('fa-check fa-times');
