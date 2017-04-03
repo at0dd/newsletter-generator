@@ -19,7 +19,11 @@
         @foreach($articles as $article)
           @if($article->categories()->first()->category != "Job Opportunities" && $article->date != null)
             <span class="udate">{{ $article->date }}</span>
+            @if($article->link != null)
             <li><span class="udatetime"><a href="{{ $article->link }}" target="_blank">{{ $article->title }}</a></span> @ {{ $article->location }}</li>
+            @else
+            <li><span class="udatetime">{{ $article->title }}</span> @ {{ $article->location }}</li>
+            @endif
           @endif
         @endforeach
       </ul>
@@ -39,7 +43,11 @@
           @foreach($articles as $article)
             @if($article->categories()->first()->category == $category->category)
               <article>
+                @if($article->link != null)
                 <h4><a href="{{ $article->link }}" target="_blank">{{ $article->title }}</a></h4>
+                @else
+                <h4>{{ $article->title }}</h4>
+                @endif
                 <span class="date">{{ $article->date }}</span>
                 <span class="location">{{ $article->location }}</span>
                 <p>{{ $article->text }}</p>
