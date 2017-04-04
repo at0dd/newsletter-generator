@@ -2,6 +2,7 @@
 
 use App\Article;
 use App\Http\Controllers\Controller;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Newsletter;
