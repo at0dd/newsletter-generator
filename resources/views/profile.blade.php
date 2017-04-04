@@ -1,14 +1,6 @@
 @extends('layouts.master')
 @section('title', 'Profile')
 
-@section('head')
-<script>
-window.Laravel = <?php echo json_encode([
-  'csrfToken' => csrf_token(),
-]); ?>
-</script>
-@endsection
-
 @section('content')
 <div class="container">
   <div class="row">
@@ -31,14 +23,7 @@ window.Laravel = <?php echo json_encode([
         </div>
         <button type="submit" class="btn btn-primary btn-xl">Update Profile</button>
       </form>
-      <div id="app">
-        <passport-personal-access-tokens></passport-personal-access-tokens>
-      </div>
     </div>
   </div>
 </div>
-@endsection
-
-@section('footer')
-<script src="{{ elixir('/js/app.js') }}"></script>
 @endsection
