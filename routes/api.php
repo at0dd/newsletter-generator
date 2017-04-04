@@ -15,8 +15,8 @@ use Illuminate\Http\Request;
 
 Route::get('/articles', 'APIController@Articles');
 
-Route::post('/administration/approve/{id}', ['uses' => 'APIController@Approve', 'middleware' => 'roles', 'roles' => ['Administrator']]);
-Route::post('/administration/deny/{id}', ['uses' => 'APIController@Deny', 'middleware' => 'roles', 'roles' => ['Administrator']]);
-Route::post('/administration/users/{id}/{role}', ['uses' => 'APIController@Role', 'middleware' => 'roles', 'roles' => ['Administrator']]);
-Route::post('/administration/archive/{id}', ['uses' => 'APIController@Archive', 'middleware' => 'roles', 'roles' => ['Administrator']]);
-Route::post('/administration/send', ['uses' => 'APIController@SendNewsletter', 'middleware' => 'roles', 'roles' => ['Administrator']]);
+Route::post('/administration/approve/{id}', 'APIController@Approve');
+Route::post('/administration/deny/{id}', 'APIController@Deny');
+Route::post('/administration/users/{id}/{role}', 'APIController@Role');
+Route::post('/administration/archive/{id}', 'APIController@Archive');
+Route::post('/administration/send', 'APIController@SendNewsletter');
