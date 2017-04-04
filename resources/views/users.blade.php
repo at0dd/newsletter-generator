@@ -45,6 +45,9 @@ $('.clink').click(function(e){
     "async": true,
     "url": "{{ url('/api/administration/users/') }}/"+this.id+"/"+$(this).find('i').attr('id'),
     "method": "POST",
+    headers: {
+      'X-CSRF-TOKEN': "{{ csrf_token() }}",
+    }
   }
   $.ajax(settings).done(function (response) {
     console.log(response);

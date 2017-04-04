@@ -76,6 +76,9 @@ $('.newsletter').click(function(e){
       "async": true,
       "url": "{{ url('/api/administration/send/') }}",
       "method": "POST",
+      headers: {
+        'X-CSRF-TOKEN': "{{ csrf_token() }}",
+      }
     }
     $.ajax(settings).done(function (response) {
       console.log(response);
@@ -95,6 +98,9 @@ $('.clink').click(function(e){
     "async": true,
     "url": "url",
     "method": "POST",
+    headers: {
+      'X-CSRF-TOKEN': "{{ csrf_token() }}",
+    }
   }
   if($(this).hasClass('approved')){
     settings['url'] = "{{ url('/api/administration/deny/') }}/"+this.id;
@@ -118,6 +124,9 @@ $('.carch').click(function(e){
     "async": true,
     "url": "{{ url('/api/administration/archive/') }}/"+this.id,
     "method": "POST",
+    headers: {
+      'X-CSRF-TOKEN': "{{ csrf_token() }}",
+    }
   }
   $.ajax(settings).done(function (response) {
     console.log(response);

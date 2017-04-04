@@ -11,6 +11,7 @@
 |
 */
 
+Route::group(['middleware' => 'web'], function () {
 Route::get('/', 'MainController@Index');
 Route::get('/archives', 'MainController@Archives');
 Route::get('/guidelines', 'MainController@Guidelines');
@@ -30,3 +31,4 @@ Route::get('/login', 'Auth\AuthController@CASLogin');
 Route::get('auth/login', 'Auth\AuthController@CASLogin');
 Route::get('auth/logout', 'Auth\AuthController@Logout');
 Route::get('auth/caslogout', 'Auth\AuthController@CASLogout');
+});

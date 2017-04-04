@@ -2,10 +2,12 @@
 
 use App\Article;
 use App\Http\Controllers\Controller;
+use App\Mail\Newsletter;
+use App\Role;
+use App\User;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\Newsletter;
 use Response;
 
 class APIController extends Controller

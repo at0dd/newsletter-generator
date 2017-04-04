@@ -15,8 +15,10 @@ use Illuminate\Http\Request;
 
 Route::get('/articles', 'APIController@Articles');
 
-Route::post('/administration/approve/{id}', 'APIController@Approve');
-Route::post('/administration/deny/{id}', 'APIController@Deny');
-Route::post('/administration/users/{id}/{role}', 'APIController@Role');
-Route::post('/administration/archive/{id}', 'APIController@Archive');
-Route::post('/administration/send', 'APIController@SendNewsletter');
+Route::group(['middleware' => 'auth:api'], function () {
+  Route::post('/administration/approve/{id}', 'APIController@Approve');
+  Route::post('/administration/deny/{id}', 'APIController@Deny');
+  Route::post('/administration/users/{id}/{role}', 'APIController@Role');
+  Route::post('/administration/archive/{id}', 'APIController@Archive');
+  Route::post('/administration/send', 'APIController@SendNewsletter');
+});

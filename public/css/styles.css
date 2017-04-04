@@ -140,6 +140,10 @@ header {
   width: 150px;
 }
 
+#app {
+  margin-top: 25px;
+}
+
 @media (min-width: 768px) {
   .news-nav li {
     display: inline-block;
