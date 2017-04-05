@@ -12,7 +12,7 @@
 <div class="container-fluid">
   <h2>User Administration</h2>
   @include('layouts/admin')
-  <table class="table table-striped">
+  <table class="table table-striped table-condensed">
     <thead>
       <tr>
         <th>First</th>

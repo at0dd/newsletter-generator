@@ -16,7 +16,7 @@
     <a href="#" class="btn btn-danger btn-xl archive">Archive</a>
     <a href="#" class="btn btn-success btn-xl newsletter">Send Newsletter</a>
   </div>
-  <table class="table table-striped">
+  <table class="table table-striped table-condensed">
     <thead>
       <tr>
         <th>Title</th>

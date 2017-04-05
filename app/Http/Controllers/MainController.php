@@ -52,7 +52,7 @@ class MainController extends Controller
       'link' => 'max:255',
       'date' => 'max:255',
       'location' => 'max:255',
-      'text' => 'required|string|max:144',
+      'text' => 'required|string|max:255',
     ]);
     $category = Category::where('slug', $request->input('category'))->first();
     $article = new Article();
