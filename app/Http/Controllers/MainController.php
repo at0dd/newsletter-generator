@@ -15,21 +15,21 @@ class MainController extends Controller
   public function Index()
   {
     $categories = Category::all();
-    $articles = Article::where('approved', 1)->where('archived', 0)->get();
+    $articles = Article::where('approved', 1)->where('archived', 0)->orderBy('date', 'asc')->get();
 
     return view('index', compact('categories', 'articles'));
   }
 
   public function Mail()
   {
-    $articles = Article::with('categories')->where('approved', 1)->where('archived', 0)->get();
+    $articles = Article::with('categories')->where('approved', 1)->where('archived', 0)->orderBy('date', 'asc')->get();
     return view('mail/newsletter', compact('articles'));
   }
 
   public function Archives()
   {
     $categories = Category::all();
-    $articles = Article::with('categories')->where('approved', 1)->where('archived', 1)->get();
+    $articles = Article::with('categories')->where('approved', 1)->where('archived', 1)->orderBy('date', 'asc')->paginate(15);
     return view('archives', compact('categories', 'articles'));
   }
 
@@ -58,7 +58,12 @@ class MainController extends Controller
     $article = new Article();
     $article->title = $request->input('title');
     $article->link = $request->input('link');
-    $article->date = $request->input('date');
+    if($request->input('date') != "")
+    {
+      $date = date_create_from_format('m/d/Y h:i A', $request->input('date'));
+      $date->getTimestamp();
+      $article->date = $date;
+    }
     $article->location = $request->input('location');
     $article->text = $request->input('text');
     $article->submitter()->associate(Auth::user());
@@ -89,7 +94,7 @@ class MainController extends Controller
 
   public function Administration()
   {
-    $articles = Article::get();
+    $articles = Article::paginate(15);
     $articlecount = Article::count();
     $usercount = User::count();
     return view('administration', compact('articles', 'articlecount', 'usercount'));

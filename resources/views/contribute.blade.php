@@ -11,7 +11,7 @@
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="form-group">
           <label for="title">Title*</label>
-          <input type="text" class="form-control" name="title" value="{{ old('title') }}" required>
+          <input type="text" class="form-control" name="title" value="{{ old('title') }}" autofocus required>
         </div>
         <div class="form-group">
           <label for="category">Category*</label>

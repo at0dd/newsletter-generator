@@ -61,7 +61,7 @@ class APIController extends Controller
 
   public function SendNewsletter()
   {
-    $articles = Article::with('categories')->where('approved', 1)->where('archived', 0)->get();
+    $articles = Article::with('categories')->where('approved', 1)->where('archived', 0)->orderBy('date', 'asc')->get();
     Mail::to('atodd@ksu.edu')->send(new Newsletter($articles));
     return Response::json(200);
   }

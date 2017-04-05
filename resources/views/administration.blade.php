@@ -36,7 +36,7 @@
         <td>{{ $article->title }}</td>
         <td>{{ $article->categories()->first()->category }}</td>
         <td><a href="{{ $article->link }}" target="_blank">{{ $article->link }}</a></td>
-        <td>{{ $article->date }}</td>
+        <td>{{ date("M j, Y @ g:i A", strtotime($article->date)) }}</td>
         <td>{{ $article->location }}</td>
         <td>{{ $article->text }}</td>
         <td>{{ $article->submitter->first }} {{ $article->submitter->last }}</td>
@@ -54,6 +54,7 @@
       @endforeach
     </tbody>
   </table>
+  {{ $articles->links() }}
 </div>
 @endsection
 

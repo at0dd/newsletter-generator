@@ -34,6 +34,7 @@
       </section>
       @endif
       @endforeach
+      {{ $articles->links() }}
     </div>
   </div>
 </div>
