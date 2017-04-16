@@ -83,7 +83,7 @@
     @endforeach
     <footer>
       <span class="cp">Computer Science Weekly</span><br />
-      <a href="https://testing.atodd.io/newsletter-generator/public/">View this email in your browser.</a>
+      <a href="{{ url('/') }}">View this email in your browser.</a>
     </footer>
   </div>
 </body>
