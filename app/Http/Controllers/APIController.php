@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Article;
+use App\Category;
 use App\Http\Controllers\Controller;
 use App\Mail\Newsletter;
 use App\Role;
@@ -95,8 +96,18 @@ class APIController extends Controller
 
   public function SendNewsletter()
   {
-    $articles = Article::with('categories')->where('approved', 1)->where('archived', 0)->orderBy('date', 'asc')->get();
-    Mail::to('atodd@ksu.edu')->send(new Newsletter($articles));
+    $categories = Category::all();
+    $monday = date("Y-m-d", strtotime('monday this week'));
+    $sunday = date("Y-m-d", strtotime('this sunday'));
+    $articles = Article::where('approved', 1)->where('archived', 0)->whereDate('publish', '>=', $monday)->whereDate('publish', '<=', $sunday)->orderBy('date', 'asc')->get();
+    $catCount = array();
+    for($i=0; $i<count($categories); $i++){
+      array_push($catCount, 0);
+    }
+    foreach($articles as $article){
+      $catCount[($article->categories()->first()->id)-1]++;
+    }
+    Mail::to('atodd@ksu.edu')->send(new Newsletter($articles, $categories, $catCount));
     return Response::json(200);
   }
 }

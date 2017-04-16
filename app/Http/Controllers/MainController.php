@@ -38,8 +38,18 @@ class MainController extends Controller
 
   public function Mail()
   {
-    $articles = Article::with('categories')->where('approved', 1)->where('archived', 0)->orderBy('date', 'asc')->get();
-    return view('mail/newsletter', compact('articles'));
+    $categories = Category::all();
+    $monday = date("Y-m-d", strtotime('monday this week'));
+    $sunday = date("Y-m-d", strtotime('this sunday'));
+    $articles = Article::where('approved', 1)->where('archived', 0)->whereDate('publish', '>=', $monday)->whereDate('publish', '<=', $sunday)->orderBy('date', 'asc')->get();
+    $catCount = array();
+    for($i=0; $i<count($categories); $i++){
+      array_push($catCount, 0);
+    }
+    foreach($articles as $article){
+      $catCount[($article->categories()->first()->id)-1]++;
+    }
+    return view('mail/newsletter', compact('categories', 'articles', 'catCount'));
   }
 
   public function Archives()

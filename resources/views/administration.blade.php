@@ -14,6 +14,7 @@
   @include('layouts/admin')
   <div class="adminbtn">
     <a href="#" class="btn btn-danger btn-xl archive">Archive All</a>
+    <a href="{{ url('/mail') }}" target="_blank" class="btn btn-info btn-xl">Preview Newsletter</a>
     <a href="#" class="btn btn-success btn-xl newsletter">Send Newsletter</a>
   </div>
   <table class="table table-striped table-condensed">
