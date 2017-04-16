@@ -71,11 +71,16 @@ header {
   text-transform: uppercase;
 }
 
-.udate {
-  margin-left: -20px;
+.upcoming {
+  list-style: none;
+  padding-left: 0;
 }
 
-.udatetime {
+.upcoming li ul {
+  list-style: disc;
+}
+
+.uptitle, .dayofweek {
   font-weight: bold;
 }
 
@@ -157,6 +162,10 @@ header {
 .pagination>li>a,
 .pagination>li>span {
   color: #512888;
+}
+
+.required {
+  color: #FF0000;
 }
 
 @media (min-width: 768px) {

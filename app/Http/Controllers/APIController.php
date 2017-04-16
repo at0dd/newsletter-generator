@@ -18,6 +18,10 @@ class APIController extends Controller
     return response()->json(['articles' => $articles], 200);
   }
 
+  public function Clubs(){
+    
+  }
+
   public function Approve($id)
   {
     $article = Article::where('id', $id)->first();

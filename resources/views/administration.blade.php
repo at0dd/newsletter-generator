@@ -13,7 +13,7 @@
   <h2>Administration</h2>
   @include('layouts/admin')
   <div class="adminbtn">
-    <a href="#" class="btn btn-danger btn-xl archive">Archive</a>
+    <a href="#" class="btn btn-danger btn-xl archive">Archive All</a>
     <a href="#" class="btn btn-success btn-xl newsletter">Send Newsletter</a>
   </div>
   <table class="table table-striped table-condensed">
@@ -21,6 +21,7 @@
       <tr>
         <th>Title</th>
         <th>Category</th>
+        <th>Publish Date</th>
         <th>Link</th>
         <th>Date</th>
         <th>Location</th>
@@ -35,11 +36,12 @@
       <tr>
         <td>{{ $article->title }}</td>
         <td>{{ $article->categories()->first()->category }}</td>
+        <td>{{ $article->publish != null ? date("M j, Y", strtotime($article->publish)) : '' }}</td>
         <td><a href="{{ $article->link }}" target="_blank">{{ $article->link }}</a></td>
-        <td>{{ date("M j, Y @ g:i A", strtotime($article->date)) }}</td>
+        <td>{{ $article->date != null ? date("M j, Y @ g:i A", strtotime($article->date)) : '' }}</td>
         <td>{{ $article->location }}</td>
         <td>{{ $article->text }}</td>
-        <td>{{ $article->submitter->first }} {{ $article->submitter->last }}</td>
+        <td><a href="mailto:{{$article->submitter->email}}">{{ $article->submitter->first }} {{ $article->submitter->last }}</a></td>
         @if($article->approved == 1)
           <td class="checked"><a class="clink approved" id="{{ $article->id }}"><i class="fa fa-check" aria-hidden="true"></i></a></td>
         @else
@@ -62,7 +64,7 @@
 <script>
 $('.archive').click(function(e){
   e.preventDefault();
-  var conf = confirm("Are you sure you want to archive all articles?");
+  var conf = confirm("Are you sure you want to archive all approved articles?");
   if(conf){
     window.location.href = "{{ url('/administration/archive') }}";
   }

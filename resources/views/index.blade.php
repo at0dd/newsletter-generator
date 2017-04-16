@@ -16,18 +16,28 @@
       <p>Computer Science Weekly is an enewsletter distributed every week to CS faculty, staff and students.</p>
       <h3>Upcoming Events</h3>
       <ul class="upcoming">
-        @foreach($articles as $article)
-          @if($article->categories()->first()->category != "Job Opportunities" && $article->date != null)
-            <span class="udate">{{ date("l, F j @ g:i A", strtotime($article->date)) }}</span>
-            <li><span class="udatetime">
-                @if($article->link != null)
-                  <a href="{{ $article->link }}" target="_blank">{{ $article->title }}</a>
-                @else
-                  {{ $article->title }}
-                @endif
-              </span>
-              {{ $article->location != null ? ' @ '.$article->location : ''}}
+        @foreach($byDay as $day)
+          @if(!empty($day))
+          <li>
+            <span class="dayofweek">{{ date("l, F j", strtotime($day[0]->date)) }}</span>
+            <ul>
+            @foreach($day as $article)
+            <li>
+              <span class="uptitle">
+              @if($article->link != null)
+                <a href="{{ $article->link }}" target="_blank">{{ $article->title }}</a>
+              @else
+                {{ $article->title }}
+              @endif
+            </span>
+              <br /><span class="etime">{{ date("g:i A", strtotime($article->date)) }}</span> @
+              @if($article->location != null)
+                <span class="eloc">{{ $article->location }}</span>
+              @endif
             </li>
+            @endforeach
+            </ul>
+          </li>
           @endif
         @endforeach
       </ul>
@@ -35,12 +45,12 @@
     <div class="col-xs-12 col-md-8 news">
       <ul class="news-nav">
         @foreach($categories as $category)
-        <li><span class="notification">{{ count($category->articles()->where('approved', 1)->where('archived', 0)->get()) }}</span> <a href="#{{ $category->slug }}">{{ $category->category }}</a></li>
+        <li><span class="notification">{{ $catCount[($category->id)-1] }}</span> <a href="#{{ $category->slug }}">{{ $category->category }}</a></li>
         @endforeach
       </ul>
 
       @foreach($categories as $category)
-        @if(count($category->articles()->where('approved', 1)->where('archived', 0)->get()) > 0)
+        @if($catCount[($category->id)-1] > 0)
         <section id="{{ $category->slug }}">
           <h2>{{ $category->category }}</h2>
           <hr />
@@ -54,7 +64,7 @@
                     {{ $article->title }}
                   @endif
                 </h4>
-                <span class="date">{{ date("l, F j, Y @ g:i A", strtotime($article->date)) }}</span>
+                <span class="date">{{ $article->date != null ? date("l, F j, Y @ g:i A", strtotime($article->date)) : '' }}</span>
                 <span class="location">{{ $article->location }}</span>
                 <p>{{ $article->text }}</p>
               </article>

@@ -6,6 +6,7 @@ use App\User;
 use App\Role;
 use App\Http\Controllers\Controller;
 use Auth;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Response;
@@ -15,9 +16,25 @@ class MainController extends Controller
   public function Index()
   {
     $categories = Category::all();
-    $articles = Article::where('approved', 1)->where('archived', 0)->orderBy('date', 'asc')->get();
 
-    return view('index', compact('categories', 'articles'));
+    $monday = date("Y-m-d", strtotime('monday this week'));
+    $sunday = date("Y-m-d", strtotime('this sunday'));
+    $articles = Article::where('approved', 1)->where('archived', 0)->whereDate('publish', '>=', $monday)->whereDate('publish', '<=', $sunday)->orderBy('date', 'asc')->get();
+    $byDay = array();
+    for($i=0; $i<7; $i++){
+      $byDay[$i] = array();
+    }
+    $catCount = array();
+    for($i=0; $i<count($categories); $i++){
+      array_push($catCount, 0);
+    }
+    foreach($articles as $article){
+      if($article->date != null && $article->categories()->first()->category != "Job Opportunities"){
+        array_push($byDay[date('w', strtotime($article->date))], $article);
+      }
+      $catCount[($article->categories()->first()->id)-1]++;
+    }
+    return view('index', compact('categories', 'articles', 'byDay', 'catCount'));
   }
 
   public function Mail()
@@ -29,7 +46,7 @@ class MainController extends Controller
   public function Archives()
   {
     $categories = Category::all();
-    $articles = Article::with('categories')->where('approved', 1)->where('archived', 1)->orderBy('date', 'asc')->paginate(15);
+    $articles = Article::with('categories')->where('approved', 1)->where('archived', 1)->orderBy('publish', 'asc')->paginate(15);
     return view('archives', compact('categories', 'articles'));
   }
 
@@ -48,6 +65,7 @@ class MainController extends Controller
   {
     $this->validate($request, [
       'title' => 'required|string|max:255',
+      'publish' => 'max:255',
       'category' => 'required|string|max:255',
       'link' => 'max:255',
       'date' => 'max:255',
@@ -57,6 +75,9 @@ class MainController extends Controller
     $category = Category::where('slug', $request->input('category'))->first();
     $article = new Article();
     $article->title = $request->input('title');
+    $publish = date_create_from_format('m/d/Y', $request->input('publish'));
+    $publish->getTimestamp();
+    $article->publish = $publish;
     $article->link = $request->input('link');
     if($request->input('date') != "")
     {
@@ -94,7 +115,7 @@ class MainController extends Controller
 
   public function Administration()
   {
-    $articles = Article::paginate(15);
+    $articles = Article::orderBy('publish', 'asc')->paginate(15);
     $articlecount = Article::count();
     $usercount = User::count();
     return view('administration', compact('articles', 'articlecount', 'usercount'));
@@ -102,7 +123,7 @@ class MainController extends Controller
 
   public function ArchiveAll()
   {
-    $articles = Article::where('archived', 0)->get();
+    $articles = Article::where('approved', 1)->where('archived', 0)->get();
     foreach($articles as $article){
       $article->archived = 1;
       $article->save();
