@@ -16,7 +16,6 @@ class MainController extends Controller
   public function Index()
   {
     $categories = Category::all();
-
     $monday = date("Y-m-d", strtotime('monday this week'));
     $sunday = date("Y-m-d", strtotime('this sunday'));
     $articles = Article::where('approved', 1)->where('archived', 0)->whereDate('publish', '>=', $monday)->whereDate('publish', '<=', $sunday)->orderBy('date', 'asc')->get();

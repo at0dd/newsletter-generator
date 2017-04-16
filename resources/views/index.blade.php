@@ -13,7 +13,7 @@
   <div class="row">
     <header class="col-xs-12 col-md-4">
       <h1>CS Weekly</h1>
-      <p>Computer Science Weekly is an enewsletter distributed every week to CS faculty, staff and students.</p>
+      <p>Computer Science Weekly is an enewsletter distributed to CS faculty, staff and students.</p>
       <h3>Upcoming Events</h3>
       <ul class="upcoming">
         @foreach($byDay as $day)

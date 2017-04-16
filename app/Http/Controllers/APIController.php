@@ -14,12 +14,42 @@ class APIController extends Controller
 {
   public function Articles()
   {
-    $articles = Article::with('categories')->where('approved', 1)->where('archived', 0)->get();
+    $monday = date("Y-m-d", strtotime('monday this week'));
+    $sunday = date("Y-m-d", strtotime('this sunday'));
+    $articles = Article::where('approved', 1)->where('archived', 0)->whereDate('publish', '>=', $monday)->whereDate('publish', '<=', $sunday)->orderBy('date', 'asc')->get();
     return response()->json(['articles' => $articles], 200);
   }
 
-  public function Clubs(){
-    
+  public function ArticlesByDay($day){
+    if($day < 0 || $day > 6){
+      return response()->json(400);
+    }
+    $monday = date("Y-m-d", strtotime('monday this week'));
+    $sunday = date("Y-m-d", strtotime('this sunday'));
+    $articles = Article::where('approved', 1)->where('archived', 0)->whereDate('publish', '>=', $monday)->whereDate('publish', '<=', $sunday)->orderBy('date', 'asc')->get();
+    $daily = array();
+    $today = jddayofweek($day-1, 1);
+    $today = date("Y-m-d", strtotime('last '.$today, strtotime($today)));
+    foreach($articles as $article){
+      $date = date("Y-m-d", strtotime($article->date));
+      if($date == $today){
+        array_push($daily, $article);
+      }
+    }
+    return response()->json(['articles' => $daily], 200);
+  }
+
+  public function ClubArticles(){
+    $monday = date("Y-m-d", strtotime('monday this week'));
+    $sunday = date("Y-m-d", strtotime('this sunday'));
+    $articles = Article::with('categories')->where('approved', 1)->where('archived', 0)->whereDate('publish', '>=', $monday)->whereDate('publish', '<=', $sunday)->orderBy('date', 'asc')->get();
+    $clubs = array();
+    foreach($articles as $article){
+      if($article->categories()->first()->category == "Club Annoucements"){
+        array_push($clubs, $article);
+      }
+    }
+    return response()->json(['articles' => $clubs], 200);
   }
 
   public function Approve($id)
