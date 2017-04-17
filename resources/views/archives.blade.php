@@ -8,12 +8,12 @@
       <h2>Archives</h2>
       <ul class="news-nav">
         @foreach($categories as $category)
-        <li><span class="notification">{{ count($category->articles()->where('approved', 1)->where('archived', 1)->get()) }}</span> <a href="#{{ $category->slug }}">{{ $category->category }}</a></li>
+        <li><span class="notification">{{ $catCount[($category->id)-1] }}</span> <a href="#{{ $category->slug }}">{{ $category->category }}</a></li>
         @endforeach
       </ul>
 
       @foreach($categories as $category)
-      @if(count($category->articles()->where('approved', 1)->where('archived', 1)->get()) > 0)
+      @if($catCount[($category->id)-1] > 0)
       <section id="{{ $category->slug }}">
         <h2>{{ $category->category }}</h2>
         <hr />

@@ -24,14 +24,13 @@ class MainController extends Controller
       $byDay[$i] = array();
     }
     $catCount = array();
-    for($i=0; $i<count($categories); $i++){
-      array_push($catCount, 0);
+    foreach($categories as $category){
+      array_push($catCount, count($category->articles()->where('approved', 1)->where('archived', 0)->whereDate('publish', '>=', $monday)->whereDate('publish', '<=', $sunday)->get()));
     }
     foreach($articles as $article){
       if($article->date != null && $article->categories()->first()->category != "Job Opportunities"){
         array_push($byDay[date('w', strtotime($article->date))], $article);
       }
-      $catCount[($article->categories()->first()->id)-1]++;
     }
     return view('index', compact('categories', 'articles', 'byDay', 'catCount'));
   }
@@ -43,11 +42,8 @@ class MainController extends Controller
     $sunday = date("Y-m-d", strtotime('this sunday'));
     $articles = Article::where('approved', 1)->where('archived', 0)->whereDate('publish', '>=', $monday)->whereDate('publish', '<=', $sunday)->orderBy('date', 'asc')->get();
     $catCount = array();
-    for($i=0; $i<count($categories); $i++){
-      array_push($catCount, 0);
-    }
-    foreach($articles as $article){
-      $catCount[($article->categories()->first()->id)-1]++;
+    foreach($categories as $category){
+      array_push($catCount, count($category->articles()->where('approved', 1)->where('archived', 0)->whereDate('publish', '>=', $monday)->whereDate('publish', '<=', $sunday)->get()));
     }
     return view('mail/newsletter', compact('categories', 'articles', 'catCount'));
   }
@@ -56,7 +52,11 @@ class MainController extends Controller
   {
     $categories = Category::all();
     $articles = Article::with('categories')->where('approved', 1)->where('archived', 1)->orderBy('publish', 'asc')->paginate(15);
-    return view('archives', compact('categories', 'articles'));
+    $catCount = array();
+    foreach($categories as $category){
+      array_push($catCount, count($category->articles()->where('approved', 1)->where('archived', 1)->get()));
+    }
+    return view('archives', compact('categories', 'articles', 'catCount'));
   }
 
   public function Guidelines()
