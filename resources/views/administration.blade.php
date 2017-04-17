@@ -17,6 +17,7 @@
     <a href="{{ url('/mail') }}" target="_blank" class="btn btn-info btn-xl">Preview Newsletter</a>
     <a href="#" class="btn btn-success btn-xl newsletter">Send Newsletter</a>
   </div>
+  <div class="table-responsive">
   <table class="table table-striped table-condensed">
     <thead>
       <tr>
@@ -57,6 +58,7 @@
       @endforeach
     </tbody>
   </table>
+</div>
   {{ $articles->links() }}
 </div>
 @endsection

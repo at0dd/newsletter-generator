@@ -141,7 +141,7 @@ header {
 
 .archive, .newsletter {
   display: inline-block;
-  margin: 0 auto;
+  margin: 2px auto;
   width: 150px;
 }
 

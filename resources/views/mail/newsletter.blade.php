@@ -25,9 +25,9 @@
     .container {
       display: block;
       margin: 0px auto;
+      padding: 10px;
     }
     section {
-      width: 60%;
       margin: 25px auto;
       text-align: left;
     }
