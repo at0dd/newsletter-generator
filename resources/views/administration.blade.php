@@ -39,7 +39,7 @@
         <td>{{ $article->title }}</td>
         <td>{{ $article->categories()->first()->category }}</td>
         <td>{{ $article->publish != null ? date("M j, Y", strtotime($article->publish)) : '' }}</td>
-        <td><a href="{{ $article->link }}" target="_blank">{{ $article->link }}</a></td>
+        <td><a href="{{ $article->link }}" target="_blank">{{ $article->link != null ? 'Link' : '' }}</a></td>
         <td>{{ $article->date != null ? date("M j, Y @ g:i A", strtotime($article->date)) : '' }}</td>
         <td>{{ $article->location }}</td>
         <td>{{ $article->text }}</td>
