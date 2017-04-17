@@ -25,19 +25,13 @@ class APIController extends Controller
     if($day < 0 || $day > 6){
       return response()->json(400);
     }
-    $monday = date("Y-m-d", strtotime('monday this week'));
-    $sunday = date("Y-m-d", strtotime('this sunday'));
-    $articles = Article::where('approved', 1)->where('archived', 0)->whereDate('publish', '>=', $monday)->whereDate('publish', '<=', $sunday)->orderBy('date', 'asc')->get();
-    $daily = array();
-    $today = jddayofweek($day-1, 1);
-    $today = date("Y-m-d", strtotime('last '.$today, strtotime($today)));
-    foreach($articles as $article){
-      $date = date("Y-m-d", strtotime($article->date));
-      if($date == $today){
-        array_push($daily, $article);
-      }
+    if($day == 0){
+      $today = date("Y-m-d", strtotime('last '.jddayofweek($day-1, 1), strtotime(jddayofweek($day-1, 1))));
+    } else {
+      $today = date("Y-m-d", strtotime('this '.jddayofweek($day-1, 1), strtotime(jddayofweek($day-1, 1))));
     }
-    return response()->json(['articles' => $daily], 200);
+    $articles = Article::where('approved', 1)->where('archived', 0)->whereDate('date', $today)->get();
+    return response()->json(['articles' => $articles], 200);
   }
 
   public function ClubArticles(){
