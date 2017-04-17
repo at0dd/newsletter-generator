@@ -55,7 +55,7 @@
 
 <body>
   <div class="container">
-  <h1>Computer Science Weekly</h1>
+  <h1><a href="{{ url('/') }}">Computer Science Weekly</a></h1>
   <p>Kansas State University Department of Computer Science<br />{{ date("l, F j, Y", time()) }}</p>
     @foreach($categories as $category)
       @if($catCount[($category->id)-1] > 0)
@@ -81,8 +81,21 @@
       </section>
       @endif
     @endforeach
+    <section>
+      <h2>Important Links</h2>
+      <hr />
+      <ul>
+        <li><a href="http://www.engg.ksu.edu/calendar/">College of Engineering-Student Events Calendar</a></li>
+        <li><a href="http://www.engg.ksu.edu/sas/">SAS Tutoring</a></li>
+        <li><a href="https://www.engg.ksu.edu/studentservices/">Student Services</a></li>
+        <li><a href="http://www.engg.ksu.edu/asc/">Academic Success Center</a></li>
+        <li><a href="https://twitter.com/kstate_CIS">Follow us on Twitter</a></li>
+        <li><a href="https://www.facebook.com/CIS.KSU/">Like us on Facebook</a></li>
+      </ul>
+    </section>
     <footer>
       <span class="cp">Computer Science Weekly</span><br />
+      <p>If you have an event or news you'd like to share in the next CS newsletter, submit the details at <a href="{{ url('/contribute') }}">{{ url('/contribute') }}</a> by Friday at noon.</p>
       <a href="{{ url('/') }}">View this email in your browser.</a>
     </footer>
   </div>

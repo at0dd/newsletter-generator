@@ -30,9 +30,9 @@
                 {{ $article->title }}
               @endif
             </span>
-              <br /><span class="etime">{{ date("g:i A", strtotime($article->date)) }}</span> @
+              <br /><span class="etime">{{ date("g:i A", strtotime($article->date)) }}</span>
               @if($article->location != null)
-                <span class="eloc">{{ $article->location }}</span>
+                <span class="eloc"> @ {{ $article->location }}</span>
               @endif
             </li>
             @endforeach
@@ -41,6 +41,17 @@
           @endif
         @endforeach
       </ul>
+      <hr />
+      <h4>Important Links</h4>
+      <ul>
+        <li><a href="http://www.engg.ksu.edu/calendar/" target="_blank">College of Engineering-Student Events Calendar</a></li>
+        <li><a href="http://www.engg.ksu.edu/sas/" target="_blank">SAS Tutoring</a></li>
+        <li><a href="https://www.engg.ksu.edu/studentservices/" target="_blank">Student Services</a></li>
+        <li><a href="http://www.engg.ksu.edu/asc/" target="_blank">Academic Success Center</a></li>
+        <li><a href="https://twitter.com/kstate_CIS" target="_blank">Follow us on Twitter</a></li>
+        <li><a href="https://www.facebook.com/CIS.KSU/" target="_blank">Like us on Facebook</a></li>
+      </ul>
+      <p>If you have an event or news you'd like to share in the next CS newsletter, submit the details at <a href="{{ url('/contribute') }}">{{ url('/contribute') }}</a> by Friday at noon.</p>
     </header>
     <div class="col-xs-12 col-md-8 news">
       <ul class="news-nav">
