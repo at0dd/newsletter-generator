@@ -87,7 +87,11 @@ class MainController extends Controller
     $publish = date_create_from_format('m/d/Y', $request->input('publish'));
     $publish->getTimestamp();
     $article->publish = $publish;
-    $article->link = $request->input('link');
+    $link = $request->input('link');
+    if(substr($link, 0, 7) != "http://"){
+      $link = "http://".$link;
+    }
+    $article->link = $link;
     if($request->input('date') != "")
     {
       $date = date_create_from_format('m/d/Y h:i A', $request->input('date'));
