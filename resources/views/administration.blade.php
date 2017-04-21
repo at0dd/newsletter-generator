@@ -13,7 +13,7 @@
   <h2>Administration</h2>
   @include('layouts/admin')
   <div class="adminbtn">
-    <a href="#" class="btn btn-danger btn-xl archive">Archive All</a>
+    <a href="#" class="btn btn-danger btn-xl archive">Archive Previous</a>
     <a href="{{ url('/mail') }}" target="_blank" class="btn btn-info btn-xl">Preview Newsletter</a>
     <a href="#" class="btn btn-success btn-xl newsletter">Send Newsletter</a>
   </div>
@@ -67,7 +67,7 @@
 <script>
 $('.archive').click(function(e){
   e.preventDefault();
-  var conf = confirm("Are you sure you want to archive all approved articles?");
+  var conf = confirm("Are you sure you want to archive all approved articles published before today?");
   if(conf){
     window.location.href = "{{ url('/administration/archive') }}";
   }

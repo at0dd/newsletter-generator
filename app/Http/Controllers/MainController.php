@@ -136,7 +136,8 @@ class MainController extends Controller
 
   public function ArchiveAll()
   {
-    $articles = Article::where('approved', 1)->where('archived', 0)->get();
+    $today = date('Y-m-d');
+    $articles = Article::where('approved', 1)->where('archived', 0)->where('publish', '<', $today)->get();
     foreach($articles as $article){
       $article->archived = 1;
       $article->save();
