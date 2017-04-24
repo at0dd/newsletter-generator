@@ -128,7 +128,7 @@ class MainController extends Controller
 
   public function Administration()
   {
-    $articles = Article::orderBy('publish', 'asc')->paginate(15);
+    $articles = Article::orderBy('publish', 'desc')->paginate(15);
     $articlecount = Article::count();
     $usercount = User::count();
     return view('administration', compact('articles', 'articlecount', 'usercount'));
