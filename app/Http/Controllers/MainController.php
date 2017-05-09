@@ -89,8 +89,8 @@ class MainController extends Controller
     $article->publish = $publish;
     $link = $request->input('link');
     if($link != ""){
-      if(substr($link, 0, 7) != "http://"){
-        $link = "http://".$link;
+      if (!preg_match("~^(?:f|ht)tps?://~i", $link)) {
+        $link = "http://" . $link;
       }
     }
     $article->link = $link;
