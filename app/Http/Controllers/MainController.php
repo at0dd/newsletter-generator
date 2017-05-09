@@ -88,8 +88,10 @@ class MainController extends Controller
     $publish->getTimestamp();
     $article->publish = $publish;
     $link = $request->input('link');
-    if(substr($link, 0, 7) != "http://"){
-      $link = "http://".$link;
+    if($link != ""){
+      if(substr($link, 0, 7) != "http://"){
+        $link = "http://".$link;
+      }
     }
     $article->link = $link;
     if($request->input('date') != "")
