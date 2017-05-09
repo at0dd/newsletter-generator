@@ -38,7 +38,7 @@
           <ul class="nav navbar-nav navbar-right">
             @if(Auth::check())
               @if(Auth::user()->hasRole('Administrator'))
-                <li class="{{ Request::is('administration/*') ? 'active' : '' }}"><a href="{{ url('/administration') }}">Administration</a></li>
+                <li class="{{ Request::is('administration*') ? 'active' : '' }}"><a href="{{ url('/administration') }}">Administration</a></li>
               @endif
               <li class="{{ Request::is('profile') ? 'active' : '' }}"><a href="{{ url('/profile') }}">Profile</a></li>
               <li><a href="{{ url('/auth/logout') }}">Logout</a></li>
