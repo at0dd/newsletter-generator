@@ -101,7 +101,7 @@ class APIController extends Controller
     foreach($articles as $article){
       $catCount[($article->categories()->first()->id)-1]++;
     }
-    Mail::to('atodd@ksu.edu')->send(new Newsletter($articles, $categories, $catCount));
+    Mail::to(env('LISTSERV_EMAIL'))->send(new Newsletter($articles, $categories, $catCount));
     return Response::json(200);
   }
 }
